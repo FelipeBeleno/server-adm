@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ImageProduct } from "generic_schemas/Image_product";
-import { DocumentType, Image, Roles } from "interfaces/entities.interfaces";
+import { DocumentType, Image, RolesEnum } from "interfaces/entities.interfaces";
 import mongoose, { Document } from "mongoose";
 import { Client } from "src/client/entities/client.entity";
 
@@ -46,7 +46,7 @@ export class User extends Document {
         type: String,
         enum: ["SUPER_ADMIN", "ADMIN", "USER"]
     })
-    role: Roles
+    role: RolesEnum
 
     @Prop({
         type: String,

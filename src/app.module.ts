@@ -12,6 +12,7 @@ import { StockModule } from './stock/stock.module';
 import { ProductModule } from './product/product.module';
 import { SaleModule } from './sale/sale.module';
 import { FirestoreModule } from './firestore/firestore.module';
+import { AuthModule } from './auth/auth.module';
 import configuration from 'config/configuration';
 
 @Module({
@@ -29,7 +30,8 @@ import configuration from 'config/configuration';
     StockModule,
     ProductModule,
     SaleModule,
-    FirestoreModule
+    FirestoreModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

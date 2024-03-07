@@ -1,11 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { StockService } from './stock.service';
 import { CreateStockDto } from './dto/create-stock.dto';
 import { UpdateStockDto } from './dto/update-stock.dto';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
+import { Request } from 'express';
+import { RequestUser } from 'interfaces/requests.interfaces';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { RolesEnum } from 'interfaces/entities.interfaces';
+import { RolesGuard } from 'src/auth/guard/roles.guard';
+import { Auth } from 'src/auth/decorators/auth.decorator';
 
 @Controller('stock')
 export class StockController {
-  constructor(private readonly stockService: StockService) {}
+  constructor(private readonly stockService: StockService) { }
 
   @Post()
   create(@Body() createStockDto: CreateStockDto) {
@@ -13,7 +20,9 @@ export class StockController {
   }
 
   @Get()
-  findAll() {
+  @Auth([ RolesEnum.ADMIN, RolesEnum.SUPER_ADMIN])
+  findAll(@Req() req: RequestUser) {
+    console.log(req.user.email )
     return this.stockService.findAll();
   }
 
