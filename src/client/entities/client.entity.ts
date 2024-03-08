@@ -65,6 +65,12 @@ export class Client extends Document {
     package: PackageEnum
 
     @Prop({
+        type: String,
+        unique: true
+    })
+    email: string;
+
+    @Prop({
         type: String
     })
     phone: string

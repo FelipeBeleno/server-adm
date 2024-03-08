@@ -11,7 +11,7 @@ import configuration from 'config/configuration';
     JwtModule.register({
       global: true,
       secret: configuration().secretConstant,
-      signOptions: { expiresIn: '4h' }
+      signOptions: { expiresIn: '8h' }
     })
   ],
   controllers: [AuthController],
