@@ -46,4 +46,7 @@ export class CreateClientDto {
     @MinLength(7)
     address: string;
 
+    @IsBoolean()
+    status: boolean;
+
 }
