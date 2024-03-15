@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './entities/user.entity';
+import { FirestoreService } from 'src/firestore/firestore.service';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { User, UserSchema } from './entities/user.entity';
     ])
   ],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService, FirestoreService],
   exports: [UserService],
 })
 export class UserModule { }

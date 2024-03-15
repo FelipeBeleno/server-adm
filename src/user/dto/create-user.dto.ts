@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer"
-import { IsEmail, IsEnum, IsString, MinLength } from "class-validator"
+import { IsBoolean, IsEmail, IsEnum, IsMongoId, IsOptional, IsString, MinLength } from "class-validator"
 import { DocumentType, RolesEnum } from "interfaces/entities.interfaces"
 
 export class CreateUserDto {
@@ -30,6 +30,21 @@ export class CreateUserDto {
     @Transform(({ value }) => value.trim())
     @IsString()
     @MinLength(6)
+    @IsOptional()
     password: string
+
+
+    @IsMongoId()
+    @IsString()
+    clientId: string;
+
+    @Transform(({ value }) => value.trim())
+    @MinLength(6)
+    @IsString()
+    phone: string;
+
+    @IsBoolean()
+    status: boolean;
+
 
 }

@@ -65,6 +65,11 @@ export class User extends Document {
     })
     status: boolean;
 
+    @Prop({
+        type: String
+    })
+    phone: string
+
 }
 
 
