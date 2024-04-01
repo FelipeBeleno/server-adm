@@ -30,8 +30,8 @@ export class UserService {
 
   async uploadImage(image: Express.Multer.File, id: string) {
 
-    
-    
+
+
     const response = await this.firestoreService.uploadImage(id + image.originalname, image.buffer, 'user')
 
     const urlImage = await this.firestoreService.getImageUrl(id + image.originalname, 'user')
@@ -48,8 +48,30 @@ export class UserService {
 
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async findAll() {
+    return await this.userModel.aggregate([
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          documentType: 1,
+          document: 1,
+          clientId: 1,
+          role: 1,
+          email: 1,
+          status: 1,
+          phone: 1,
+          image: 1,
+        }
+      }
+    ])
+  }
+
+
+
+
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    return await this.userModel.findByIdAndUpdate(id, updateUserDto) ;
   }
 
   remove(id: number) {

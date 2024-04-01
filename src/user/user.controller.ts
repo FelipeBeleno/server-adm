@@ -4,10 +4,11 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ValidateIdMongoPipe } from 'common/pipes/isMongoId';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Post()
   @Auth([])
@@ -20,14 +21,34 @@ export class UserController {
   @Auth([])
   @UseInterceptors(FileInterceptor('image'))
   updateImage(@UploadedFile() image: Express.Multer.File, @Body('id') id: string) {
-    console.log(image)
     return this.userService.uploadImage(image, id)
   }
 
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+
+
+
+  @Get()
+  @Auth([])
+  findAll() {
+
+    return this.userService.findAll()
+  }
+
+
+  @Get(':id')
+  @Auth([])
+  getUserById(@Param('id', ValidateIdMongoPipe) id: string) {
+
+
+    console.log(id)
+    return true
+  }
+
+
+  @Post(':id')
+  update(@Param('id', ValidateIdMongoPipe) id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')

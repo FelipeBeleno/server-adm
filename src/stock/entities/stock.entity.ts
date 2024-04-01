@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose from "mongoose";
 import { Client } from "src/client/entities/client.entity";
-import { Material } from "src/material/entities/material.entity";
+import { Component } from "src/component/entities/component.entity";
+
 
 
 @Schema({
@@ -11,9 +12,9 @@ export class Stock extends Document {
 
     @Prop({
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'material'
+        ref: 'component'
     })
-    materialId: Material
+    materialId: Component
 
 
     @Prop({

@@ -7,12 +7,12 @@ import { ClientModule } from './client/client.module';
 import { PackageModule } from './package/package.module';
 import { UserModule } from './user/user.module';
 import { UserSaleModule } from './user-sale/user-sale.module';
-import { MaterialModule } from './material/material.module';
 import { StockModule } from './stock/stock.module';
 import { ProductModule } from './product/product.module';
 import { SaleModule } from './sale/sale.module';
 import { FirestoreModule } from './firestore/firestore.module';
 import { AuthModule } from './auth/auth.module';
+import { ComponentModule } from './component/component.module';
 import configuration from 'config/configuration';
 
 @Module({
@@ -26,12 +26,12 @@ import configuration from 'config/configuration';
     PackageModule,
     UserModule,
     UserSaleModule,
-    MaterialModule,
     StockModule,
     ProductModule,
     SaleModule,
     FirestoreModule,
-    AuthModule
+    AuthModule,
+    ComponentModule
   ],
   controllers: [AppController],
   providers: [AppService],

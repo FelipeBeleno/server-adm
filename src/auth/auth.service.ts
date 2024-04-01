@@ -47,7 +47,8 @@ export class AuthService {
             name: user.name,
             role: user.role,
             email: user.email,
-            image: user.image
+            image: user.image,
+            clientId: user.clientId
         }
 
         let token = await this.jwtService.signAsync(payload);

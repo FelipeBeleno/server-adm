@@ -22,7 +22,6 @@ export class StockController {
   @Get()
   @Auth([ RolesEnum.ADMIN, RolesEnum.SUPER_ADMIN])
   findAll(@Req() req: RequestUser) {
-    console.log(req.user.email )
     return this.stockService.findAll();
   }
 

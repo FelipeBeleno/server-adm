@@ -9,7 +9,7 @@ import { Client } from "src/client/entities/client.entity";
 @Schema({
     timestamps: true
 })
-export class Material extends Document {
+export class Component extends Document {
 
     @Prop({
         type: String
@@ -40,4 +40,4 @@ export class Material extends Document {
 
 
 
-export const MaterialSchema = SchemaFactory.createForClass(Material);
+export const ComponentSchema = SchemaFactory.createForClass(Component);
