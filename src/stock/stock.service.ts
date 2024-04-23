@@ -10,7 +10,7 @@ import { Model } from 'mongoose';
 import { Stock } from './entities/stock.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Component } from 'src/component/entities/component.entity';
-import { ColumnTable, ResponsePaginatedData, StockRowTable } from 'interfaces/response.interfaces';
+import { ColumnTable, ResponsePaginatedData, StockComponentRowTable, StockRowTable } from 'interfaces/response.interfaces';
 
 @Injectable()
 export class StockService {
@@ -48,7 +48,7 @@ export class StockService {
     const stock = await this.stockModel.aggregate([
       {
         $group: {
-          _id: "$materialId",
+          _id: "$componentId",
           stock: { $sum: "$stock" }
         }
       }
@@ -108,8 +108,62 @@ export class StockService {
     return responseData
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} stock`;
+  async findOne(id: string) {
+
+
+    let data = await this.stockModel.find({ componentId: id }).lean();
+
+
+    console.log(data)
+
+    const rows: StockComponentRowTable[] = data.map((c) => {
+      return {
+        key: c._id,
+        stock: c.stock,
+        value: c.value,
+        dueDate: c.dueDate,
+        status: c.status,
+        option: null
+      }
+    })
+
+
+    let columns: ColumnTable[] = [
+      {
+        key: 'stock',
+        label: 'Stock'
+      },
+      {
+        key: 'value',
+        label: 'Valor'
+      },
+      {
+        key: 'dueDate',
+        label: 'Fecha vencimiento'
+      },
+      {
+        key: 'status',
+        label: 'Estado'
+      },
+      {
+        key: 'option',
+        label: 'Acciones'
+      }
+
+
+
+    ]
+
+
+    let responseData: ResponsePaginatedData = {
+      columns,
+      count: 0,
+      rows
+    };
+
+
+    return responseData;
+
   }
 
   update(id: number, updateStockDto: UpdateStockDto) {

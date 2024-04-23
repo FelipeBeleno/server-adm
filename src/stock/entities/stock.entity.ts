@@ -14,7 +14,7 @@ export class Stock extends Document {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'component'
     })
-    materialId: Component
+    componentId: mongoose.Schema.Types.ObjectId
 
 
     @Prop({

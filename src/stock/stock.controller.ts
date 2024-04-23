@@ -6,6 +6,7 @@ import { Request } from 'express';
 import { RolesEnum } from 'interfaces/entities.interfaces';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { PaginationDto } from 'common/dtos/pagination.dto';
+import { ValidateIdMongoPipe } from 'common/pipes/isMongoId';
 
 @Controller('stock')
 export class StockController {
@@ -23,8 +24,9 @@ export class StockController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.stockService.findOne(+id);
+  @Auth([RolesEnum.ADMIN, RolesEnum.SUPER_ADMIN])
+  componentAll(@Param('id', ValidateIdMongoPipe) id: string) {
+    return this.stockService.findOne(id);
   }
 
   @Patch(':id')
