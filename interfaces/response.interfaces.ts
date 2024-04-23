@@ -6,7 +6,22 @@ export interface ClientRowTable {
     email: string;
     document: string;
     status: string;
+}
 
+
+export interface ComponentRowTable {
+    key: number;
+    image: any;
+    name: string;
+    option: null
+}
+
+
+export interface StockRowTable {
+    key: number;
+    image: any;
+    name: string;
+    option: null
 }
 
 
@@ -17,6 +32,6 @@ export interface ColumnTable {
 
 export interface ResponsePaginatedData {
     columns: ColumnTable[];
-    rows: ClientRowTable[];
+    rows: ClientRowTable[] | ComponentRowTable[] | StockRowTable[];
     count: number;
 }

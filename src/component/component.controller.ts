@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseInterceptors, UploadedFile, Query } from '@nestjs/common';
 import { ComponentService } from './component.service';
 import { CreateComponentDto } from './dto/create-component.dto';
 import { UpdateComponentDto } from './dto/update-component.dto';
@@ -6,10 +6,16 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Request } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ValidateIdMongoPipe } from 'common/pipes/isMongoId';
+import { PaginationDto } from 'common/dtos/pagination.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('component')
 export class ComponentController {
-  constructor(private readonly componentService: ComponentService) { }
+  constructor(private readonly componentService: ComponentService,
+    
+
+
+  ) { }
 
   @Post()
   @Auth([])
@@ -26,21 +32,21 @@ export class ComponentController {
   }
 
 
-
-
   @Get()
-  findAll() {
-    return this.componentService.findAll();
+  @Auth([])
+  findAll(@Query() paginationDto: PaginationDto) {
+    return this.componentService.findAll(paginationDto);
   }
+
 
   @Get(':clientId')
   findClient(@Param('clientId', ValidateIdMongoPipe) clientId: string) {
     return this.componentService.findClient(clientId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateComponentDto: UpdateComponentDto) {
-    return this.componentService.update(+id, updateComponentDto);
+  @Post(':id')
+  update(@Param('id', ValidateIdMongoPipe) id: string, @Body() updateComponentDto: UpdateComponentDto) {
+    return this.componentService.update(id, updateComponentDto);
   }
 
   @Delete(':id')

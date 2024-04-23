@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { Client } from "src/client/entities/client.entity";
 import { Component } from "src/component/entities/component.entity";
 
@@ -41,6 +41,13 @@ export class Stock extends Document {
         ref: 'client'
     })
     clientId: Client;
+
+    @Prop({
+        type: Boolean,
+        default: true
+    })
+    status: boolean;
+    
 }
 
-export const StockSchem = SchemaFactory.createForClass(Stock);
+export const StockSchema = SchemaFactory.createForClass(Stock);

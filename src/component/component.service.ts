@@ -8,6 +8,8 @@ import { Request } from 'express';
 import configuration from 'config/configuration';
 import { JwtService } from '@nestjs/jwt';
 import { FirestoreService } from 'src/firestore/firestore.service';
+import { PaginationDto } from 'common/dtos/pagination.dto';
+import { ColumnTable, ComponentRowTable, ResponsePaginatedData } from 'interfaces/response.interfaces';
 
 @Injectable()
 export class ComponentService {
@@ -37,7 +39,6 @@ export class ComponentService {
   }
 
 
-
   async uploadImage(image: Express.Multer.File, id: string) {
 
 
@@ -53,16 +54,58 @@ export class ComponentService {
   }
 
 
-  findAll() {
-    return `This action returns all component`;
+  async findAll(paginationDto: PaginationDto) {
+
+
+    const components = await this.componentModel.find({ clientId: paginationDto.clientId })
+      .limit(paginationDto.limit)
+      .skip(paginationDto.offset)
+
+    const count = await this.componentModel.find({ clientId: paginationDto.clientId }).countDocuments();
+
+
+    const rows: ComponentRowTable[] = components.map((c) => {
+      return {
+        key: c._id,
+        image: c.image,
+        name: c.name,
+        option: null
+      }
+    })
+
+
+    let columns: ColumnTable[] = [
+      {
+        key: 'image',
+        label: 'Imagen'
+      },
+      {
+        key: 'name',
+        label: 'Nombre'
+      },
+      {
+        key: 'option',
+        label: 'Acciones'
+      }
+    ]
+
+    let responseData: ResponsePaginatedData = {
+      columns,
+      count,
+      rows
+    };
+
+    return responseData;
   }
 
   async findClient(clientId: string) {
-    return await this.componentModel.find({ clientId })
+
+    return await this.componentModel.find({ clientId }, { name: 1, description: 1, image: 1, _id: 1 })
   }
 
-  update(id: number, updateComponentDto: UpdateComponentDto) {
-    return `This action updates a #${id} component`;
+  update(id: string, updateComponentDto: UpdateComponentDto) {
+
+    return this.componentModel.findByIdAndUpdate(id, updateComponentDto);
   }
 
   remove(id: number) {

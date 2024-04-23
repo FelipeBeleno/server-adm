@@ -16,5 +16,6 @@ import { FirestoreService } from 'src/firestore/firestore.service';
   ],
   controllers: [ComponentController],
   providers: [ComponentService, FirestoreService],
+  exports: [ComponentService]
 })
 export class ComponentModule { }
