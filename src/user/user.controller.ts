@@ -41,7 +41,6 @@ export class UserController {
   getUserById(@Param('id', ValidateIdMongoPipe) id: string) {
 
 
-    console.log(id)
     return true
   }
 

@@ -13,7 +13,9 @@ export class StockController {
   constructor(private readonly stockService: StockService) { }
 
   @Post()
+  @Auth([RolesEnum.ADMIN, RolesEnum.SUPER_ADMIN])
   create(@Body() createStockDto: CreateStockDto) {
+    
     return this.stockService.create(createStockDto);
   }
 
@@ -29,9 +31,10 @@ export class StockController {
     return this.stockService.findOne(id);
   }
 
+
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStockDto: UpdateStockDto) {
-    return this.stockService.update(+id, updateStockDto);
+  update(@Param('id', ValidateIdMongoPipe) id: string, @Body() updateStockDto: UpdateStockDto) {
+    return this.stockService.update(id, updateStockDto);
   }
 
   @Delete(':id')

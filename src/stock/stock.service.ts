@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateStockDto } from './dto/create-stock.dto';
 import { UpdateStockDto } from './dto/update-stock.dto';
 import { Request } from 'express';
@@ -25,8 +25,20 @@ export class StockService {
   ) {
 
   }
-  create(createStockDto: CreateStockDto) {
-    return 'This action adds a new stock';
+  async create(createStockDto: CreateStockDto) {
+
+
+    let response = await this.stockModel.create(createStockDto)
+
+    if (response._id) {
+      return 'Entrada registrada con éxito';
+    }
+
+    throw new BadRequestException('Error al ingresar la nueva entrada')
+
+
+
+
   }
 
   async findAll(paginationDto: PaginationDto, req: Request) {
@@ -113,9 +125,6 @@ export class StockService {
 
     let data = await this.stockModel.find({ componentId: id }).lean();
 
-
-    console.log(data)
-
     const rows: StockComponentRowTable[] = data.map((c) => {
       return {
         key: c._id,
@@ -166,7 +175,9 @@ export class StockService {
 
   }
 
-  update(id: number, updateStockDto: UpdateStockDto) {
+  async update(id: string, updateStockDto: UpdateStockDto) {
+    
+    await this.stockModel.findByIdAndUpdate(id, updateStockDto)
     return `This action updates a #${id} stock`;
   }
 
