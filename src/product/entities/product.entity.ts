@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { ImageProduct } from "generic_schemas/Image_product";
-import { Image, MaterialesProducto } from "interfaces/entities.interfaces";
+import { ComponentProduct, } from "interfaces/entities.interfaces";
 import mongoose, { Document } from "mongoose";
 import { Client } from "src/client/entities/client.entity";
 
@@ -13,9 +12,9 @@ export class Product extends Document {
 
     @Prop([{
 
-        materialId: {
+        componentId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'material'
+            ref: 'component'
         },
         stockRequired: {
             type: Number,
@@ -23,7 +22,7 @@ export class Product extends Document {
         }
 
     }])
-    materials: MaterialesProducto[]
+    components: ComponentProduct[]
 
     @Prop({
         type: Number
@@ -43,17 +42,16 @@ export class Product extends Document {
     description: string
 
     @Prop({
-        type: ImageProduct,
-
+        type: String,
     })
-    image: Image
+    image: string
 
 
     @Prop({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'client'
     })
-    clientId: Client;
+    clientId: string;
 
 }
 

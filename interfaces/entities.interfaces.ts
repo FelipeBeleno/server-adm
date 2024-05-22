@@ -34,11 +34,16 @@ export interface PaymentHistory {
 }
 
 
-export interface MaterialesProducto {
+export interface ComponentProduct {
 
-    materialId: string;
-    stockRequired: number; F
+    componentId: string;
+    stockRequired: number; 
 
+}
+
+export class ComponentProductClass {
+    componentId: string;
+    stockRequired: number; 
 }
 
 export interface Image {
