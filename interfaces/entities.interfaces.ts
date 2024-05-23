@@ -1,3 +1,4 @@
+import { IsInt, IsMongoId, IsOptional, IsString } from "class-validator";
 
 
 
@@ -37,13 +38,31 @@ export interface PaymentHistory {
 export interface ComponentProduct {
 
     componentId: string;
-    stockRequired: number; 
+    stockRequired: number;
+    name: string;
+    image: string | undefined;
 
 }
 
 export class ComponentProductClass {
+
+    
+    @IsMongoId()
+    @IsOptional()
+    _id?: string;
+
+    @IsMongoId()
     componentId: string;
-    stockRequired: number; 
+
+    @IsInt()
+    stockRequired: number;
+
+    @IsString()
+    name: string;
+
+    @IsOptional()
+    @IsString()
+    image: string | undefined;
 }
 
 export interface Image {

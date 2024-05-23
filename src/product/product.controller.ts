@@ -6,6 +6,7 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { RolesEnum } from 'interfaces/entities.interfaces';
 import { Request } from 'express';
+import { ValidateIdMongoPipe } from 'common/pipes/isMongoId';
 
 @Controller('product')
 export class ProductController {
@@ -25,25 +26,17 @@ export class ProductController {
   updateImage(@UploadedFile() image: Express.Multer.File, @Body('id') id: string) {
 
     return this.productService.uploadImage(image, id);
-
   }
 
-
-
-  @Get()
-  findAll() {
-    return this.productService.findAll();
-  }
-
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productService.findOne(+id);
+  @Get(':clientId')
+  @Auth([RolesEnum.ADMIN])
+  findOne(@Param('clientId', ValidateIdMongoPipe) clientId: string) {
+    return this.productService.findAll(clientId);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productService.update(+id, updateProductDto);
+  update(@Param('id', ValidateIdMongoPipe) id: string, @Body() updateProductDto: UpdateProductDto) {
+    return this.productService.update(id, updateProductDto);
   }
 
   @Delete(':id')

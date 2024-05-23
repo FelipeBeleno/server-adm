@@ -19,6 +19,12 @@ export class Product extends Document {
         stockRequired: {
             type: Number,
             default: 0
+        },
+        name:{
+            type: String
+        },
+        image: {
+            type: String
         }
 
     }])

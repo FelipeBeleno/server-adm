@@ -21,13 +21,14 @@ export class ProductService {
 
   async create(createProductDto: CreateProductDto, request: Request) {
 
-    
+
 
 
     return await this.productModel.create(createProductDto);
   }
 
   async uploadImage(image: Express.Multer.File, id: string) {
+
 
     const response = await this.firestoreService.uploadImage(id + image.originalname, image.buffer, 'product')
 
@@ -39,16 +40,16 @@ export class ProductService {
 
   }
 
-  findAll() {
-    return `This action returns all product`;
-  }
+  async findAll(clientId: string) {
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
-  }
+    const response = await this.productModel.find({ clientId }).lean();
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+    return response;
+
+  }
+  async update(id: string, updateProductDto: UpdateProductDto) {
+    let response = await this.productModel.findByIdAndUpdate(id, updateProductDto).lean();
+    return response;
   }
 
   remove(id: number) {

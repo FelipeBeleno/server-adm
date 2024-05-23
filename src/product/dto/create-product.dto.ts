@@ -1,12 +1,12 @@
 import { Type } from "class-transformer";
-import { IsArray, IsInt, IsMongoId, IsOptional, IsString, Min, MinLength, ValidateNested } from "class-validator";
+import { IsArray, IsInt, IsMongoId, IsNotEmpty, IsOptional, IsString, Min, MinLength, ValidateNested } from "class-validator";
 import { ComponentProduct, ComponentProductClass } from "interfaces/entities.interfaces";
 
 export class CreateProductDto {
 
-
     @IsArray()
     @ValidateNested({ each: true })
+    @IsNotEmpty({ each: true })
     @Type(() =>  ComponentProductClass)
     components: ComponentProduct[]
 

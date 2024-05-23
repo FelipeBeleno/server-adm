@@ -8,6 +8,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ValidateIdMongoPipe } from 'common/pipes/isMongoId';
 import { PaginationDto } from 'common/dtos/pagination.dto';
 import { JwtService } from '@nestjs/jwt';
+import { RolesEnum } from 'interfaces/entities.interfaces';
 
 @Controller('component')
 export class ComponentController {
@@ -33,7 +34,7 @@ export class ComponentController {
 
 
   @Get()
-  @Auth([])
+  @Auth([RolesEnum.ADMIN, RolesEnum.SUPER_ADMIN])
   findAll(@Query() paginationDto: PaginationDto) {
     return this.componentService.findAll(paginationDto);
   }
