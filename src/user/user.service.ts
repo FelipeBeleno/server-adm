@@ -36,7 +36,6 @@ export class UserService {
 
     const urlImage = await this.firestoreService.getImageUrl(id + image.originalname, 'user')
 
-
     await this.userModel.findByIdAndUpdate(id, { image: urlImage });
     return true
 

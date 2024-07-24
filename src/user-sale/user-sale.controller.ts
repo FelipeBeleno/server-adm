@@ -2,10 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { UserSaleService } from './user-sale.service';
 import { CreateUserSaleDto } from './dto/create-user-sale.dto';
 import { UpdateUserSaleDto } from './dto/update-user-sale.dto';
+import { ValidateIdMongoPipe } from 'common/pipes/isMongoId';
 
 @Controller('user-sale')
 export class UserSaleController {
-  constructor(private readonly userSaleService: UserSaleService) {}
+  constructor(private readonly userSaleService: UserSaleService) { }
 
   @Post()
   create(@Body() createUserSaleDto: CreateUserSaleDto) {
@@ -17,9 +18,9 @@ export class UserSaleController {
     return this.userSaleService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userSaleService.findOne(+id);
+  @Get(':document/:clientId')
+  findOne(@Param('document') document: string, @Param('clientId', ValidateIdMongoPipe) clientId: string) {
+    return this.userSaleService.findOne(document, clientId);
   }
 
   @Patch(':id')

@@ -20,7 +20,7 @@ export class Product extends Document {
             type: Number,
             default: 0
         },
-        name:{
+        name: {
             type: String
         },
         image: {
@@ -58,6 +58,19 @@ export class Product extends Document {
         ref: 'client'
     })
     clientId: string;
+
+    @Prop({
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'usersale'
+    })
+    userSale: string;
+
+    @Prop({
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    })
+    userRegister: string;
+
 
 }
 

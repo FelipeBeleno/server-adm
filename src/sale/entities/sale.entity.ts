@@ -1,19 +1,35 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { Document } from "mongoose";
-import { Client } from "src/client/entities/client.entity";
 import { Product } from "src/product/entities/product.entity";
-import { UserSale } from "src/user-sale/entities/user-sale.entity";
-
-
-
 
 @Schema({
     timestamps: true
 })
 export class Sale extends Document {
+    @Prop([{
 
-    @Prop([Product])
-    products: Product
+        clientId: {
+            type: String
+        },
+        name: {
+            type: String
+        },
+        quantity: {
+            type: Number
+        },
+        value: {
+            type: Number
+        },
+        valueTotal: {
+            type: Number
+        },
+        productId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Product'
+        }
+    }
+    ])
+    products: Array<any>;
 
     @Prop({
         type: Number
@@ -26,10 +42,9 @@ export class Sale extends Document {
     valueSaleIva: number;
 
     @Prop({
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user-sale'
+        type: String
     })
-    userSale: UserSale
+    userSale: string;
 
     @Prop({
         type: String
@@ -37,10 +52,15 @@ export class Sale extends Document {
     codeSale: string;
 
     @Prop({
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'client'
+        type: String
     })
-    clientId: Client;
+    clientId: string;
+
+    @Prop({
+        type: String,
+    })
+    userRegister: string;
+    createdAt: Date;
 
 }
 

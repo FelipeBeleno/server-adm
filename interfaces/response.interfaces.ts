@@ -16,6 +16,15 @@ export interface ComponentRowTable {
     option: null
 }
 
+export interface SaleRowTable {
+    key: number;
+
+    codeSale: string;
+    createdAt: string;
+    option: null
+}
+
+
 
 export interface StockRowTable {
     key: number;
@@ -42,6 +51,6 @@ export interface ColumnTable {
 
 export interface ResponsePaginatedData {
     columns: ColumnTable[];
-    rows: ClientRowTable[] | ComponentRowTable[] | StockRowTable[] | StockComponentRowTable[];
+    rows: ClientRowTable[] | ComponentRowTable[] | StockRowTable[] | StockComponentRowTable[]| SaleRowTable[];
     count: number;
 }

@@ -40,6 +40,10 @@ export class UserSale extends Document {
     })
     clientId: Client;
 
+    @Prop({
+        type: String
+    })
+    email: string
 
 }
 

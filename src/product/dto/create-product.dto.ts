@@ -7,7 +7,7 @@ export class CreateProductDto {
     @IsArray()
     @ValidateNested({ each: true })
     @IsNotEmpty({ each: true })
-    @Type(() =>  ComponentProductClass)
+    @Type(() => ComponentProductClass)
     components: ComponentProduct[]
 
     @IsInt()
@@ -21,11 +21,14 @@ export class CreateProductDto {
     @IsString()
     @MinLength(2)
     description: string
-    
+
     @IsOptional()
     image: string;
 
     @IsMongoId()
     clientId: string;
+
+
+
 
 }
