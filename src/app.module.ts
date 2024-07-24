@@ -13,6 +13,7 @@ import { SaleModule } from './sale/sale.module';
 import { FirestoreModule } from './firestore/firestore.module';
 import { AuthModule } from './auth/auth.module';
 import { ComponentModule } from './component/component.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 import configuration from 'config/configuration';
 
 @Module({
@@ -31,7 +32,8 @@ import configuration from 'config/configuration';
     SaleModule,
     FirestoreModule,
     AuthModule,
-    ComponentModule
+    ComponentModule,
+    DashboardModule
   ],
   controllers: [AppController],
   providers: [AppService],
