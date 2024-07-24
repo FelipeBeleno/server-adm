@@ -8,11 +8,7 @@ import { Response } from 'express';
 export class DashboardController {
   constructor(private readonly dashboardService: DashboardService) { }
 
-  @Post()
-  create(@Body() createDashboardDto: CreateDashboardDto) {
-    return this.dashboardService.create(createDashboardDto);
-  }
-
+ 
   @Get('saleToday/:clientId')
   async findSaleToday(@Param('clientId') clientId: string){
     return await this.dashboardService.saleToday(clientId)
@@ -33,13 +29,4 @@ export class DashboardController {
 
 
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDashboardDto: UpdateDashboardDto) {
-    return this.dashboardService.update(+id, updateDashboardDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.dashboardService.remove(+id);
-  }
 }
