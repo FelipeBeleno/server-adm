@@ -29,6 +29,7 @@ export class ProductService {
 
   async uploadImage(image: Express.Multer.File, id: string) {
 
+    console.log(image)
 
     const response = await this.firestoreService.uploadImage(id + image.originalname, image.buffer, 'product')
 

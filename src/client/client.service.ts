@@ -38,7 +38,6 @@ export class ClientService {
 
     }
 
-    return 'This action adds a new client';
   }
 
   async uploadImage(image: Express.Multer.File, id: string) {
@@ -122,10 +121,12 @@ export class ClientService {
 
 
   async findOne(id: string) {
-    return await this.clientModel.findById(id, { __v: 0, paymentHistory: 0, _id: 0, updatedAt:0, createdAt:0 });
+    return await this.clientModel.findById(id, { __v: 0, paymentHistory: 0, _id: 0, updatedAt: 0, createdAt: 0 });
   }
 
   async update(id: string, updateClientDto: UpdateClientDto) {
+
+    console.log('entro')
     return await this.clientModel.findByIdAndUpdate(id, updateClientDto);
   }
 

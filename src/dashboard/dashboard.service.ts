@@ -171,17 +171,17 @@ export class DashboardService {
     let coutnSales = await this.saleModel.find({ clientId, createdAt: { $gte: dateMonth } }).countDocuments()
 
     let starProductTodayFinal = {
-      name: starProductToday[0]._id.name,
-      totalQuantity: starProductToday[0].totalQuantity
+      name: starProductToday.length === 0 ? 'Sin registro' : starProductToday[0]._id.name,
+      totalQuantity: starProductToday.length === 0 ? 'Sin registro' : starProductToday[0].totalQuantity
     }
-    
+
 
     let starProductFinal = {
-      name: starProduct[0]._id.name,
-      totalQuantity: starProduct[0].totalQuantity
+      name: starProduct.length === 0 ? 'Sin registro' : starProduct[0]._id.name,
+      totalQuantity: starProduct.length === 0 ? 'Sin registro' : starProduct[0].totalQuantity
     }
     return {
-      todaySale: todaySale[0].valueSale ? todaySale[
+      todaySale: todaySale.length !== 0 ? todaySale[
         0
       ].valueSale : 0,
       yesterdaySale: yesterdaySale[
@@ -189,7 +189,7 @@ export class DashboardService {
       ] ? yesterdaySale[
         0
       ].valueSale : 0,
-      monthSale: monthSale[0].valueSale ? monthSale[0].valueSale : 0,
+      monthSale: monthSale.length !== 0 ? monthSale[0].valueSale : 0,
       starProductFinal,
       coutnSales,
       starProductTodayFinal

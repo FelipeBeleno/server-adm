@@ -34,7 +34,7 @@ export class ClientController {
   @Get('select')
   @Auth([])
   findAllSelect() {
-      return this.clientService.findAllSelect()
+    return this.clientService.findAllSelect()
   }
 
   @Get(':id')
@@ -44,7 +44,7 @@ export class ClientController {
 
   @Post(':id')
   update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-    
+    console.log('entro')
     return this.clientService.update(id, updateClientDto);
   }
 

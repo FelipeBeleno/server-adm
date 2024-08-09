@@ -70,7 +70,10 @@ export class UserService {
 
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    return await this.userModel.findByIdAndUpdate(id, updateUserDto) ;
+    console.log('entro', id, updateUserDto);
+    let { email, ...rest } = updateUserDto;
+
+    return await this.userModel.findByIdAndUpdate(id, rest);
   }
 
   remove(id: number) {
