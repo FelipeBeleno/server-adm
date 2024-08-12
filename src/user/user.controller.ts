@@ -5,6 +5,12 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ValidateIdMongoPipe } from 'common/pipes/isMongoId';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+
+
+
+@ApiBearerAuth()
+@ApiTags('user')
 
 @Controller('user')
 export class UserController {

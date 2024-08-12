@@ -7,6 +7,11 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { RolesEnum } from 'interfaces/entities.interfaces';
 import { Request } from 'express';
 import { ValidateIdMongoPipe } from 'common/pipes/isMongoId';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+
+
+@ApiBearerAuth()
+@ApiTags('product')
 
 @Controller('product')
 export class ProductController {

@@ -7,7 +7,12 @@ import { RolesEnum } from 'interfaces/entities.interfaces';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { PaginationDto } from 'common/dtos/pagination.dto';
 import { ValidateIdMongoPipe } from 'common/pipes/isMongoId';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+
+
+@ApiBearerAuth()
+@ApiTags('stock')
 @Controller('stock')
 export class StockController {
   constructor(private readonly stockService: StockService) { }
@@ -15,7 +20,7 @@ export class StockController {
   @Post()
   @Auth([RolesEnum.ADMIN, RolesEnum.SUPER_ADMIN])
   create(@Body() createStockDto: CreateStockDto) {
-    
+
     return this.stockService.create(createStockDto);
   }
 
@@ -33,11 +38,13 @@ export class StockController {
 
 
   @Patch(':id')
+  @Auth([RolesEnum.ADMIN, RolesEnum.SUPER_ADMIN])
   update(@Param('id', ValidateIdMongoPipe) id: string, @Body() updateStockDto: UpdateStockDto) {
     return this.stockService.update(id, updateStockDto);
   }
 
   @Delete(':id')
+  @Auth([RolesEnum.ADMIN, RolesEnum.SUPER_ADMIN])
   remove(@Param('id') id: string) {
     return this.stockService.remove(+id);
   }

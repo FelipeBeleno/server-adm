@@ -3,7 +3,12 @@ import { UserSaleService } from './user-sale.service';
 import { CreateUserSaleDto } from './dto/create-user-sale.dto';
 import { UpdateUserSaleDto } from './dto/update-user-sale.dto';
 import { ValidateIdMongoPipe } from 'common/pipes/isMongoId';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+
+
+@ApiBearerAuth()
+@ApiTags('user-sale')
 @Controller('user-sale')
 export class UserSaleController {
   constructor(private readonly userSaleService: UserSaleService) { }
