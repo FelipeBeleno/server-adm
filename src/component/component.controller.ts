@@ -38,7 +38,7 @@ export class ComponentController {
 
 
   @Get()
-  @Auth([RolesEnum.ADMIN, RolesEnum.SUPER_ADMIN])
+  @Auth([RolesEnum.ADMIN])
   findAll(@Query() paginationDto: PaginationDto) {
     return this.componentService.findAll(paginationDto);
   }
